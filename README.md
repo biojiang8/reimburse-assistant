@@ -7,7 +7,7 @@
 
 - **发票签字**：批量给电子发票 PDF 加电子签、写归档标识、规范重命名
   （`公司-金额-dzfp票号-已签字.pdf`）。
-- **发票明细 Excel**：按武汉塞维尔官方模板结构输出
+- **发票明细 Excel**：按报销官方订单表模板结构输出
   （项目名称/财务项目码/发票号/物品名称/物品规格/供应商编码/供应商名称/单位/单价/数量），
   明细从发票 PDF 文本层自动提取，空值填"无"，发票号列为文本格式。
 - **实物证据 Word**：发票号 / 公司 / 税号 / 采购日期 + 实物照片，
@@ -30,7 +30,7 @@ tauri-app/
     ├── src/lib.rs            # Rust 后端：托盘/快捷键/对话框/任务编排/项目台账
     ├── helpers/              # Python 处理引擎（源码）
     │   ├── add_invoice_signature.py   # 发票签字 + 文本层字段/明细提取
-    │   ├── invoice_summary.py         # 塞维尔模板 Excel
+    │   ├── invoice_summary.py         # 发票明细 Excel（官方模板）
     │   ├── invoice_evidence.py        # 实物证据 Word
     │   ├── verify_package.py          # 四槽位校验
     │   └── reagent_report.py          # 试剂耗材汇总（CLI 保留）

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""发票配套 Excel 生成器 —— 按武汉塞维尔官方订单表模板输出。
+"""发票配套 Excel 生成器 —— 按报销官方订单表模板输出。
 
 结构（单工作表）：
 项目名称 / 财务项目码 / 发票号 / 物品名称 / 物品规格 /
@@ -120,7 +120,7 @@ def write_excel(records: List[Dict[str, Any]], output_path: Path) -> None:
 
 
 def main(argv: List[str]) -> int:
-    parser = argparse.ArgumentParser(description="发票 Excel 生成（塞维尔官方模板）")
+    parser = argparse.ArgumentParser(description="发票 Excel 生成（报销官方模板）")
     # 由 reimburse-helper 的 summary 子命令路由使用，脚本本身忽略
     parser.add_argument("--summary-json", action="store_true", help=argparse.SUPPRESS)
     parser.add_argument("--json-file", required=True, help="记录 JSON 文件路径")

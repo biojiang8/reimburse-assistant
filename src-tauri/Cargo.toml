@@ -1,6 +1,6 @@
 [package]
 name = "reimburse-assistant"
-version = "0.2.0"
+version = "0.0.1"
 description = "报销助手 - 轻量跨平台版"
 authors = ["BioJiang Lab"]
 edition = "2021"

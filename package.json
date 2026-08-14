@@ -1,6 +1,6 @@
 {
   "name": "reimburse-assistant-tauri",
-  "version": "0.2.0",
+  "version": "0.0.1",
   "private": true,
   "description": "报销助手轻量版（Tauri）",
   "scripts": {
