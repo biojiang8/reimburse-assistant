@@ -1,0 +1,23 @@
+[package]
+name = "reimburse-assistant"
+version = "0.2.0"
+description = "报销助手 - 轻量跨平台版"
+authors = ["BioJiang Lab"]
+edition = "2021"
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = ["tray-icon", "image-png", "image-ico"] }
+tauri-plugin-dialog = "2"
+tauri-plugin-global-shortcut = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+dirs = "6"
+base64 = "0.22"
+
+[profile.release]
+lto = true
+codegen-units = 1
+strip = true

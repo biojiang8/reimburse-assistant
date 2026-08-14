@@ -1,0 +1,47 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "报销助手",
+  "version": "0.2.0",
+  "identifier": "com.biojiang.reimbursement",
+  "build": {
+    "frontendDist": "../ui"
+  },
+  "app": {
+    "withGlobalTauri": true,
+    "windows": [
+      {
+        "title": "报销助手",
+        "width": 1180,
+        "height": 760,
+        "minWidth": 900,
+        "minHeight": 620,
+        "center": true,
+        "resizable": true
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["app", "dmg"],
+    "category": "Finance",
+    "shortDescription": "报销助手 - 发票签字与试剂耗材汇总",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns"
+    ],
+    "resources": {
+      "../src-tauri/helpers/add_invoice_signature.py": "helpers/add_invoice_signature.py",
+      "../src-tauri/helpers/reagent_report.py": "helpers/reagent_report.py",
+      "../src-tauri/helpers/invoice_summary.py": "helpers/invoice_summary.py",
+      "../src-tauri/helpers/invoice_evidence.py": "helpers/invoice_evidence.py",
+      "../src-tauri/helpers/verify_package.py": "helpers/verify_package.py",
+      "../src-tauri/helpers/helper_cli.py": "helpers/helper_cli.py",
+      "../src-tauri/helpers/reimburse-helper/": "helpers/reimburse-helper/"
+    }
+  }
+}

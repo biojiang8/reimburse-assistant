@@ -1,0 +1,19 @@
+# 依赖
+node_modules/
+
+# Rust / Tauri 构建产物
+src-tauri/target/
+src-tauri/gen/schemas/
+
+# Python 引擎构建产物（CI 里重新打包）
+src-tauri/helpers/reimburse-helper/
+src-tauri/helpers/dist/
+src-tauri/helpers/build/
+src-tauri/helpers/*.spec
+src-tauri/helpers/pyinstaller-config/
+
+# 系统与日志
+.DS_Store
+*.log
+__pycache__/
+*.pyc

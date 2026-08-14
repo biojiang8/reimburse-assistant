@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; connect-src 'self' ipc: http://ipc.localhost; img-src 'self' data: file:; frame-src file:; object-src file:; style-src 'self'; script-src 'self'"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>报销助手</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="app-header">
+        <div class="brand-block">
+          <div class="brand-mark" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </div>
+          <div>
+            <h1>报销助手</h1>
+            <p id="engine-status">正在检查本地引擎</p>
+          </div>
+        </div>
+        <button class="button button-quiet" id="open-output-button" type="button">
+          <img src="../assets/icons/folder-open.svg" alt="" />
+          输出目录
+        </button>
+      </header>
+
+      <section id="tab-invoices">
+      <section class="control-bar" aria-label="处理选项">
+        <button class="button button-secondary" id="add-files-button" type="button">
+          <img src="../assets/icons/file-plus-2.svg" alt="" />
+          添加发票
+        </button>
+
+        <button class="path-control" id="signature-button" type="button">
+          <img src="../assets/icons/signature.svg" alt="" />
+          <span>
+            <small>电子签</small>
+            <strong id="signature-label">默认签名</strong>
+          </span>
+          <img class="path-chevron" src="../assets/icons/chevron-down.svg" alt="" />
+        </button>
+
+        <select
+          class="project-select"
+          id="project-select"
+          title="选择报销项目（自动记忆，未来多项目可切换）"
+        >
+          <option value="">正在读取项目…</option>
+        </select>
+        <input
+          class="project-input"
+          id="project-name-input"
+          type="text"
+          placeholder="项目名称（必填）"
+          title="项目名称，写入发票明细 Excel 第一列"
+          hidden
+        />
+        <input
+          class="project-input project-input-code"
+          id="project-code-input"
+          type="text"
+          placeholder="经费代码（必填）"
+          title="经费代码/财务项目码，写入发票明细 Excel 第二列"
+          hidden
+        />
+
+        <button class="path-control path-control-wide" id="output-directory-button" type="button">
+          <img src="../assets/icons/folder-cog.svg" alt="" />
+          <span>
+            <small>保存到</small>
+            <strong id="output-directory-label">正在读取</strong>
+          </span>
+          <img class="path-chevron" src="../assets/icons/chevron-down.svg" alt="" />
+        </button>
+
+        <label class="toggle-control" title="允许替换输出目录中的同名文件">
+          <input id="overwrite-toggle" type="checkbox" />
+          <span class="toggle-track" aria-hidden="true"><span></span></span>
+          <span>覆盖同名</span>
+        </label>
+
+        <button class="button button-secondary" id="verify-button" type="button" disabled>
+          <img src="../assets/icons/circle-check.svg" alt="" />
+          AI 校验
+        </button>
+
+        <button
+          class="button button-primary"
+          id="process-button"
+          type="button"
+          disabled
+          title="一键完成：签字 PDF + 明细 Excel + 实物证据 Word（有照片时）+ AI 校验"
+        >
+          <img src="../assets/icons/play.svg" alt="" />
+          <span>一键处理</span>
+          <span class="button-count" id="process-count">0</span>
+        </button>
+      </section>
+
+      <section class="verify-panel" id="verify-panel" hidden>
+        <div class="pane-heading">
+          <div>
+            <h2>AI 校验</h2>
+            <p id="verify-summary">尚未校验</p>
+          </div>
+          <button class="button button-small" id="verify-refresh-button" type="button">
+            重新校验
+          </button>
+        </div>
+        <div class="verify-list" id="verify-list"></div>
+      </section>
+
+      <main class="workspace">
+        <section class="queue-pane" aria-labelledby="queue-heading">
+          <div class="pane-heading">
+            <div>
+              <h2 id="queue-heading">发票队列</h2>
+              <p id="queue-summary">0 张发票</p>
+            </div>
+            <button
+              class="icon-button"
+              id="clear-button"
+              type="button"
+              title="清空队列"
+              aria-label="清空队列"
+              disabled
+            >
+              <img src="../assets/icons/trash-2.svg" alt="" />
+            </button>
+          </div>
+
+          <div class="drop-zone" id="drop-zone" tabindex="0">
+            <img src="../assets/icons/files.svg" alt="" />
+            <div>
+              <strong>发票 PDF</strong>
+              <span>拖入此处或选择文件</span>
+            </div>
+            <button class="button button-small" id="drop-select-button" type="button">选择</button>
+          </div>
+
+          <div class="queue-list" id="queue-list" role="listbox" aria-label="待处理发票"></div>
+        </section>
+
+        <section class="preview-pane" aria-labelledby="preview-heading">
+          <div class="pane-heading preview-heading">
+            <div class="preview-title-block">
+              <h2 id="preview-heading">发票预览</h2>
+              <p id="preview-filename">未选择发票</p>
+            </div>
+            <button
+              class="icon-button"
+              id="reveal-file-button"
+              type="button"
+              title="在文件夹中显示"
+              aria-label="在文件夹中显示"
+              disabled
+            >
+              <img src="../assets/icons/external-link.svg" alt="" />
+            </button>
+          </div>
+
+          <div class="preview-surface">
+            <div class="preview-empty" id="preview-empty">
+              <img src="../assets/icons/receipt-text.svg" alt="" />
+              <strong>发票预览</strong>
+            </div>
+            <img id="pdf-preview" alt="发票 PDF 首屏预览" />
+          </div>
+        </section>
+      </main>
+      </section>
+
+      <footer class="status-bar">
+        <div class="status-left">
+          <span class="status-dot" id="status-dot"></span>
+          <span id="status-message">等待添加发票</span>
+        </div>
+        <div class="progress-group" id="progress-group" hidden>
+          <div class="progress-track"><span id="progress-fill"></span></div>
+          <span id="progress-label">0 / 0</span>
+        </div>
+      </footer>
+    </div>
+
+    <div class="toast-region" id="toast-region" aria-live="polite"></div>
+    <script src="tauri-bridge.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
