@@ -85,6 +85,14 @@ jobs:
       - name: Build Tauri app
         run: npx tauri build --target ${{ matrix.target }} --bundles ${{ matrix.bundles }}
 
+      - name: Normalize artifact names (ASCII)
+        shell: bash
+        run: |
+          cd src-tauri/target/${{ matrix.target }}/release/bundle
+          find . -name "报销助手_*" -type f | while read -r f; do
+            mv "$f" "$(dirname "$f")/$(basename "$f" | sed 's/^报销助手/reimburse-assistant/')"
+          done
+
       - uses: actions/upload-artifact@v4
         with:
           name: reimburse-assistant-${{ matrix.platform }}-${{ matrix.target }}
