@@ -43,11 +43,14 @@ PyMuPDF / Pillow / openpyxl / python-docx）。有打包二进制时无需装 Py
 
 ## 在线打包（GitHub Actions）
 
-推送代码或打 `v*` tag 自动构建四个平台安装包：
+推送代码或打 `v*` tag 自动构建三个平台安装包：
 
-- macOS arm64（Apple 芯片）+ macOS x64（Intel）：`.dmg`
+- macOS arm64（Apple 芯片）：`.dmg`
 - Windows x64：`.msi` / `.exe`（NSIS）
 - Linux x64：`.deb` / `.AppImage`
+
+（GitHub 已停用 Intel Mac 构建机，Intel Mac 版暂缓；需要时可改回
+`macos-13` 矩阵或改打 universal 包。）
 
 产物在 Actions 的 Artifacts 下载；打 tag（如 `v0.2.0`）会自动发布为
 GitHub Release。
