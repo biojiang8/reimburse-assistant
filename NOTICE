@@ -1,0 +1,15 @@
+# 署名声明（NOTICE）
+
+报销助手（reimburse-assistant）最初由 **biojiang8（BioJiang Lab）** 于 2026 年开发，
+以 MIT 许可证开源。
+
+## 使用与修改要求
+
+- 你可以自由使用、修改、分发本软件（含商用），但**必须保留本软件的
+  LICENSE（MIT）与本 NOTICE 声明**，并注明原作者：biojiang8（BioJiang Lab）。
+- 在衍生作品的 README、关于页面或发布说明中，建议注明：
+  "基于 biojiang8 的报销助手（reimburse-assistant）开发，原始项目：
+  https://github.com/biojiang8/reimburse-assistant"
+- 若将本软件或其衍生版本用于论文、基金或成果汇报，请按学术规范引用原始项目。
+
+感谢尊重原创。
